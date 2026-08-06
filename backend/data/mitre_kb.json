@@ -1,0 +1,60 @@
+{
+  "techniques": [
+    {
+      "id": "T1566.001",
+      "name": "Phishing: Spearphishing Attachment",
+      "tactic": "Initial Access",
+      "description": "Adversaries may send spearphishing emails with malicious attachments to gain initial access to target systems. Attachments are typically weaponized Office documents or executable zips.",
+      "mitigation": "Block executable attachments at the email gateway, enforce SPF/DKIM/DMARC, and use sandbox attachment scanning.",
+      "detection": "Inspect incoming email logs for suspicious attachment extensions, anomalous file hashes, or macros executing PowerShell."
+    },
+    {
+      "id": "T1059.001",
+      "name": "Command and Scripting Interpreter: PowerShell",
+      "tactic": "Execution",
+      "description": "Adversaries may use PowerShell to execute commands, scripts, or binaries. PowerShell provides interactive access and script execution capabilities.",
+      "mitigation": "Configure PowerShell Constrained Language Mode, enable Script Block Logging (Event ID 4104), and restrict execution policies.",
+      "detection": "Monitor process creation events (Event ID 4688 / Sysmon 1) for powershell.exe executing encoded commands (-EncodedCommand, -e, -nop)."
+    },
+    {
+      "id": "T1053.005",
+      "name": "Scheduled Task/Job: Scheduled Task",
+      "tactic": "Persistence",
+      "description": "Adversaries may create scheduled tasks to execute programs at system startup or on a periodic schedule to maintain persistence.",
+      "mitigation": "Limit administrative access, restrict schtasks.exe privileges, and monitor scheduled task creation.",
+      "detection": "Monitor Windows Event ID 4698 (A scheduled task was created) and TaskScheduler operational logs."
+    },
+    {
+      "id": "T1068",
+      "name": "Exploitation for Privilege Escalation",
+      "tactic": "Privilege Escalation",
+      "description": "Adversaries may exploit software vulnerabilities to elevate access privileges, such as local kernel privilege escalation (e.g. CVE-2024-30080).",
+      "mitigation": "Apply operating system security updates and vendor security patches promptly.",
+      "detection": "Monitor for unexpected elevated token privileges, LSASS memory access, or system driver injection."
+    },
+    {
+      "id": "T1021.002",
+      "name": "Remote Services: SMB/Windows Admin Shares",
+      "tactic": "Lateral Movement",
+      "description": "Adversaries may use SMB and Administrative Shares (C$, ADMIN$) to move laterally between hosts using stolen administrative credentials.",
+      "mitigation": "Disable administrative shares if not required, isolate internal network segments, enforce SMB signing.",
+      "detection": "Monitor Event ID 5140 (A network share object was accessed) and Event ID 4624 Type 3 network logons."
+    },
+    {
+      "id": "T1567.002",
+      "name": "Exfiltration Over Web Service: Exfiltration to Cloud Storage",
+      "tactic": "Exfiltration",
+      "description": "Adversaries may exfiltrate data to cloud storage services (e.g. AWS S3, Mega.nz, OneDrive) using legitimate client software or APIs.",
+      "mitigation": "Enforce Data Loss Prevention (DLP) policies, restrict egress traffic to approved cloud storage domains, monitor AWS API access.",
+      "detection": "Monitor outbound firewall logs, DNS requests to external cloud APIs, and CloudTrail PutObject / MultiPartUpload events."
+    }
+  ],
+  "threat_actors": [
+    {
+      "name": "APT29 (Cozy Bear)",
+      "associated_incidents": ["INC-2026-8891"],
+      "typical_targets": "Government, Aerospace, Financial, Cloud Infrastructure",
+      "tools": ["Powershell", "Mimikatz", "S3Exfil", "Cobalt Strike"]
+    }
+  ]
+}
