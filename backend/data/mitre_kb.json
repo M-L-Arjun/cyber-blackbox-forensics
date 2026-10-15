@@ -25,6 +25,14 @@
       "detection": "Monitor Windows Event ID 4698 (A scheduled task was created) and TaskScheduler operational logs."
     },
     {
+      "id": "T1003",
+      "name": "OS Credential Dumping: LSASS Memory",
+      "tactic": "Credential Access",
+      "description": "Adversaries may attempt to dump credentials to obtain account login and credential material, normally in the form of a hash or a clear text password, from the Local Security Authority Subsystem Service (LSASS) process.",
+      "mitigation": "Enable LSA Protection (RunAsPPL), enforce Credential Guard, and restrict debug privileges.",
+      "detection": "Monitor handles opened to lsass.exe (Sysmon Event ID 10) and memory dump command line patterns such as mimikatz or procdump."
+    },
+    {
       "id": "T1068",
       "name": "Exploitation for Privilege Escalation",
       "tactic": "Privilege Escalation",

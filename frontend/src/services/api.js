@@ -121,6 +121,24 @@ const FALLBACK_INCIDENT = {
 };
 
 export const api = {
+  async getIncidents() {
+    try {
+      const res = await client.get('/api/incidents');
+      return res.data;
+    } catch (e) {
+      console.warn("Backend API offline, using fallback incidents list:", e.message);
+      return [{
+        incident_id: FALLBACK_INCIDENT.incident_id,
+        title: FALLBACK_INCIDENT.title,
+        threat_actor: FALLBACK_INCIDENT.threat_actor,
+        risk_score: FALLBACK_INCIDENT.risk_score,
+        log_count: FALLBACK_INCIDENT.logs.length,
+        is_demo: true,
+        created_at: "2026-08-06T02:00:00Z"
+      }];
+    }
+  },
+
   async getIncident(id = "INC-2026-8891") {
     try {
       const res = await client.get(`/api/incidents/${id}`);
@@ -129,6 +147,25 @@ export const api = {
       console.warn("Backend API offline, using Cyber Black Box fallback ledger:", e.message);
       return FALLBACK_INCIDENT;
     }
+  },
+
+  async uploadEvidence(formData) {
+    const res = await client.post('/api/evidence/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 30000,
+    });
+    return res.data;
+  },
+
+  async deleteIncident(incidentId) {
+    const res = await client.delete(`/api/incidents/${incidentId}`);
+    return res.data;
+  },
+
+  getReportDownloadUrl(incidentId) {
+    return `${API_BASE_URL}/api/incidents/${incidentId}/report/download`;
   },
 
   async queryRag(id, query) {

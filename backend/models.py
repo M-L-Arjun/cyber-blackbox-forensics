@@ -97,6 +97,20 @@ class IncidentScenario(BaseModel):
     timeline: List[TimelineStep]
     graph: AttackGraph
     response_actions: List[ResponseAction]
+    is_demo: Optional[bool] = False
+    evidence_files: Optional[List[Dict[str, Any]]] = []
+    master_evidence_hash: Optional[str] = None
+    created_at: Optional[str] = None
+
+class IncidentListItem(BaseModel):
+    incident_id: str
+    title: str
+    threat_actor: str
+    risk_score: int
+    log_count: int
+    is_demo: bool
+    created_at: str
+    status: Optional[str] = "INVESTIGATION_COMPLETE"
 
 class ForensicReport(BaseModel):
     report_id: str

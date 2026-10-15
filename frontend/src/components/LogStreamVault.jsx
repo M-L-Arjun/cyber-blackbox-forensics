@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ShieldCheck, Lock, Database, Search, CheckCircle2, FileCode, Filter } from 'lucide-react';
 
-export default function LogStreamVault({ logs = [], masterHash }) {
+export default function LogStreamVault({ logs = [], masterHash, evidenceFiles = [] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSource, setSelectedSource] = useState('ALL');
   const [inspectLog, setInspectLog] = useState(null);
@@ -47,6 +47,34 @@ export default function LogStreamVault({ logs = [], masterHash }) {
           </div>
         </div>
       </div>
+
+      {/* Ingested Evidence Files Provenance (if available) */}
+      {evidenceFiles && evidenceFiles.length > 0 && (
+        <div className="glass-panel p-5 rounded-2xl border border-stone-200 bg-white space-y-3">
+          <div className="flex items-center space-x-2 text-xs font-mono font-bold text-stone-800">
+            <FileCode className="w-4 h-4 text-red-600" />
+            <span>INGESTED EVIDENCE SOURCES & PROVENANCE ({evidenceFiles.length}):</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {evidenceFiles.map((ef, idx) => (
+              <div key={idx} className="p-3 bg-stone-50 rounded-xl border border-stone-200 font-mono text-xs space-y-1.5">
+                <div className="flex items-center justify-between font-bold text-stone-900">
+                  <span className="truncate">{ef.filename}</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold">
+                    {ef.record_count} Records
+                  </span>
+                </div>
+                <div className="text-[11px] text-stone-500 truncate">
+                  SHA-256: <span className="text-stone-800 select-all font-bold">{ef.sha256}</span>
+                </div>
+                <div className="text-[10px] text-stone-400">
+                  Size: {(ef.file_size_bytes / 1024).toFixed(1)} KB • Ingested: {ef.ingested_at?.slice(0, 19).replace('T', ' ')} UTC
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Filter Controls */}
       <div className="glass-panel p-5 sm:p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">

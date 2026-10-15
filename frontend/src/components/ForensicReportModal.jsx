@@ -29,6 +29,15 @@ export default function ForensicReportModal({ incidentId = "INC-2026-8891", onCl
           </div>
           
           <div className="flex items-center space-x-2">
+            <a
+              href={api.getReportDownloadUrl(incidentId)}
+              download={`forensic_report_${incidentId}.md`}
+              target="_blank"
+              rel="noreferrer"
+              className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold text-xs flex items-center space-x-1.5 transition-all border border-stone-300 shadow-sm"
+            >
+              <span>Download (.MD)</span>
+            </a>
             <button
               onClick={() => window.print()}
               className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-700 text-white font-bold text-xs flex items-center space-x-1.5 transition-all shadow-sm"
