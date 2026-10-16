@@ -4,6 +4,19 @@ An AI-powered digital forensics and cyberattack reconstruction platform featurin
 
 ---
 
+## 🌐 Run & Test Anywhere (Instant Cloud Links)
+
+| Platform | Type | Link / Action |
+|---|---|---|
+| **GitHub Codespaces** | **Full Stack Cloud IDE** (Backend + Frontend) | [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/M-L-Arjun/cyber-blackbox-forensics) |
+| **Vercel** | **1-Click Frontend Cloud Deploy** | [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/M-L-Arjun/cyber-blackbox-forensics) |
+| **Render** | **1-Click Backend Cloud Deploy** | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/M-L-Arjun/cyber-blackbox-forensics) |
+| **GitHub Pages** | **Live Hosted Frontend** | [https://m-l-arjun.github.io/cyber-blackbox-forensics/](https://m-l-arjun.github.io/cyber-blackbox-forensics/) |
+
+> **Tip:** You can launch a complete running instance inside your web browser right now with zero installation using the **[Open in GitHub Codespaces](https://codespaces.new/M-L-Arjun/cyber-blackbox-forensics)** link!
+
+---
+
 ## 🌟 Key Capabilities
 
 - **📁 Multi-Source Forensic Ingestion**: Drag-and-drop or batch upload evidence files (`.csv`, `.json`, `.jsonl`, `.txt`, `.log`). Supports AWS CloudTrail, Microsoft 365, EDR telemetry, Linux Syslog, and network firewall logs.
